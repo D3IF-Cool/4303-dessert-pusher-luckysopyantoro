@@ -28,7 +28,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.android.dessertclicker.databinding.ActivityMainBinding
 import timber.log.Timber
 
-
+//Menambahkan Key
 const val KEY_REVENUE = "revenue_key"
 const val KEY_DESSERT_SOLD = "dessert_sold_key"
 
@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
        // Log.i("MainActivity", "onStart Called")
         Timber.i("onCreate called")
-       // dessertTimer.startTimer()
+
 
     }
     override fun onResume() {
@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         Timber.i("onStop Called")
-       // dessertTimer.stopTimer()
+
 
     }
     override fun onDestroy() {
