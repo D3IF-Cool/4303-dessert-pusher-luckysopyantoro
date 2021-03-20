@@ -28,7 +28,12 @@ import androidx.databinding.DataBindingUtil
 import com.example.android.dessertclicker.databinding.ActivityMainBinding
 import timber.log.Timber
 
+
+const val KEY_REVENUE = "revenue_key"
+const val KEY_DESSERT_SOLD = "dessert_sold_key"
+
 class MainActivity : AppCompatActivity() {
+
 
     private var revenue = 0
     private var dessertsSold = 0
@@ -67,6 +72,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (savedInstanceState != null) {
+            revenue = savedInstanceState.getInt(KEY_REVENUE, 0)
+            dessertsSold = savedInstanceState.getInt(KEY_DESSERT_SOLD, 0)
+            showCurrentDessert()
+        }
+
        // Log.i("MainActivity", "onCreate Called")
         Timber.i("onCreate called")
 
@@ -78,20 +89,29 @@ class MainActivity : AppCompatActivity() {
             onDessertClicked()
         }
         //set
-        dessertTimer = DessertTimer()
+        dessertTimer = DessertTimer(this.lifecycle)
         // Set the TextViews to the right values
         binding.revenue = revenue
         binding.amountSold = dessertsSold
 
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
+
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_REVENUE, revenue)
+        outState.putInt(KEY_DESSERT_SOLD, dessertsSold)
+
     }
 
     override fun onStart() {
         super.onStart()
        // Log.i("MainActivity", "onStart Called")
         Timber.i("onCreate called")
-        dessertTimer.startTimer()
+       // dessertTimer.startTimer()
 
     }
     override fun onResume() {
@@ -105,7 +125,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         Timber.i("onStop Called")
-        dessertTimer.stopTimer()
+       // dessertTimer.stopTimer()
 
     }
     override fun onDestroy() {
